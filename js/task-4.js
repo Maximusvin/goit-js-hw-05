@@ -1,30 +1,35 @@
 'use strict';
 
-const countTotalSalary = function (employees) {
-  let totalSalary = 0;
-
-  for (const key in employees) {
-    totalSalary += employees[key];
+class StringBuilder {
+  constructor(value) {
+    this._value = value;
   }
 
-  return totalSalary;
-};
+  get value() {
+    return this._value;
+  }
 
-// Проверка
-console.log(countTotalSalary({})); // 0
+  append(str) {
+    this._value += str;
+  }
 
-console.log(
-  countTotalSalary({
-    mango: 100,
-    poly: 150,
-    alfred: 80,
-  }),
-); // 330
+  prepend(str) {
+    this._value = str + this._value;
+  }
 
-console.log(
-  countTotalSalary({
-    kiwi: 200,
-    lux: 50,
-    chelsy: 150,
-  }),
-); // 400
+  pad(str) {
+    this._value = str + this._value + str;
+  }
+}
+
+// Проверка кода
+const builder = new StringBuilder('.');
+
+builder.append('^');
+console.log(builder.value); // '.^'
+
+builder.prepend('^');
+console.log(builder.value); // '^.^'
+
+builder.pad('=');
+console.log(builder.value); // '=^.^='
